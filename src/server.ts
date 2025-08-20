@@ -37,6 +37,7 @@ app.put("/items",async (req:Request,res:Response)=>{
    await  manageFile(req,res,202)
 })
 app.listen(PORT, () => {
+  console.log('Adding a command and commit this');
   console.log(`Server running at http://localhost:${PORT}`);
 });
 
