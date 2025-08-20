@@ -3,6 +3,8 @@ import {promises as fs} from 'fs';// use promises
 import path from 'path';
 const app = express();
 const PORT = 4001;
+//************* import database from mysql2 */
+import mysql, {Connection}  from 'mysql2';
 // Parse JSON bodies
 app.use(express.json());
 //an endpoint to retrive json data from items directory
@@ -36,12 +38,36 @@ app.post("/items", async (req: Request, res: Response) => {
 app.put("/items",async (req:Request,res:Response)=>{
    await  manageFile(req,res,202)
 })
+
+
+
 app.listen(PORT, () => {
   console.log('Adding a command and commit this');
+  testDb();
   console.log(`Server running at http://localhost:${PORT}`);
 });
 
+function testDb(){
+  //2nd step(connection string object)
+  const connectionInfo = {
+    host: "localhost",
+    user: "root",
+    password: "mypassword",
+    database: "mydb",
+  };
+  //3rd step(creating connection object)
+  const connection = mysql.createConnection(connectionInfo);
 
+  //4st step (test the connection)
+  connection.connect((err) => {
+    if (err) {
+      console.log("Error to connect to mysql ....!!!!");
+    } else {
+      console.log("Connection successful ....");
+       connection.end();
+    }
+  });
+}
 async function manageFile(req: Request, res: Response, statusCode: number) {
   try {
     const data: itemModel = req.body;
