@@ -9,8 +9,7 @@ export type Student={
     gender: string
 
 }
-
-async function getStudents(){
+export async function getStudents(){
    const [rows] = await db.query("SELECT * FROM students"); 
    return rows;
 }

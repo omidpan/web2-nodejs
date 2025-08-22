@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
 import {promises as fs} from 'fs';// use promises 
 import path from 'path';
-import result from "./studentService";
+//import getStudent from studentService.ts
+import { getStudents } from "./studentService";
 const app = express();
 const PORT = 4001;
 //************* import database from mysql2 */
@@ -42,11 +43,12 @@ app.put("/items",async (req:Request,res:Response)=>{
 
 
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log('Adding a command and commit this');
   testDb();
-  console.log(result);
   console.log(`Server running at http://localhost:${PORT}`);
+  const allStudents = await getStudents();
+  console.log(allStudents);
 });
 
 function testDb(){
