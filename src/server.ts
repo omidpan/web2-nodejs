@@ -39,6 +39,11 @@ app.post("/items", async (req: Request, res: Response) => {
 });
 app.put("/items",async (req:Request,res:Response)=>{
    await  manageFile(req,res,202)
+});
+//implementing new endpoint to retrieve all the students from database.
+app.get('/students',async(req:Request,res:Response)=>{
+  const result=await getStudents();
+  res.send(result);
 })
 
 
@@ -47,8 +52,8 @@ app.listen(PORT, async () => {
   console.log('Adding a command and commit this');
   testDb();
   console.log(`Server running at http://localhost:${PORT}`);
-  const allStudents = await getStudents();
-  console.log(allStudents);
+  // const allStudents = await getStudents();
+  // console.log(allStudents);
 });
 
 function testDb(){
