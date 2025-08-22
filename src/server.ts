@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import {promises as fs} from 'fs';// use promises 
 import path from 'path';
+import result from "./studentService";
 const app = express();
 const PORT = 4001;
 //************* import database from mysql2 */
@@ -44,6 +45,7 @@ app.put("/items",async (req:Request,res:Response)=>{
 app.listen(PORT, () => {
   console.log('Adding a command and commit this');
   testDb();
+  console.log(result);
   console.log(`Server running at http://localhost:${PORT}`);
 });
 
@@ -64,6 +66,7 @@ function testDb(){
       console.log("Error to connect to mysql ....!!!!");
     } else {
       console.log("Connection successful ....");
+    
        connection.end();
     }
   });
